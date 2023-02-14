@@ -6,5 +6,10 @@ namespace ArraysImplimentations
         {
             return array[index];
         }
+
+        public int Method2(int[] array,int index)
+        {
+            return array[index];
+        }
     }
 }
