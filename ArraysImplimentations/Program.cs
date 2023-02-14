@@ -196,5 +196,13 @@ namespace ArraysImplimentations
                     throw new Exception("You have to mention atmost of 4 dimensions only");
             }
         }
+
+        static void DisplayArray(int[] array)
+        {
+            foreach(var i in array)
+            {
+                Console.WriteLine(i);
+            }
+        }
     }
 }
