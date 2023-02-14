@@ -204,5 +204,13 @@ namespace ArraysImplimentations
                 Console.WriteLine(i);
             }
         }
+
+        static void DisplayArray(int[,] array)
+        {
+            foreach (var i in array)
+            {
+                Console.WriteLine(i);
+            }
+        }
     }
 }
