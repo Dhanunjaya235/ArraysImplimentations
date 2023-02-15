@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Collections.Immutable;
 namespace ArraysImplimentations
 {
     internal class Program
@@ -7,24 +6,44 @@ namespace ArraysImplimentations
         public static readonly int[] const_array = new int[10];
         static void Main(string[] args)
         {
-            DisplayArray("Dhanunjay");
-            int[][] type_check = new int[10][];
-            type_check[0] = new int[10];
-            short[][] short_check = new short[10][];
-            DisplayArray(type_check);
-            DisplayArray(short_check);
+            ArrayGenerations genration = new ArrayGenerations();
 
-            var implicit_array = new[] { 1, 2, 3, 4, 5 };
-            Console.WriteLine(implicit_array.GetType());
-            DisplayArray(implicit_array);
+            GenerateImmutableArrays immutableArrays = new GenerateImmutableArrays();
+            Console.WriteLine(typeof(double));
+            Console.WriteLine(typeof(int));
+            Console.WriteLine(typeof(long));
+            Console.WriteLine(typeof(short));
+            Console.WriteLine(typeof(char));
+            Console.WriteLine(typeof(float));
+            Console.WriteLine(typeof(decimal));
 
-            var immutable = ImmutableArray.Create<int>(0, 1, 2, 3, 4, 5);
+            var gen = genration.GenerateArray(typeof(int), 3);
 
-            foreach (var item in immutable)
+            for (int i = 0; i < gen.Length; i++)
             {
-                Console.WriteLine(item);
+                Console.Write($"Enter the number to store in the array at index position {i} : ");
+                gen[i] = Convert.ToInt32(Console.ReadLine());
             }
-            Console.WriteLine(immutable.IndexOf(3));
+            var dhanu = genration.GenerateArray(typeof(int), 10);
+            Console.WriteLine(dhanu.GetType());
+            foreach (var i in dhanu)
+            {
+                Console.WriteLine(i);
+            }
+
+            var dhanu2 = immutableArrays.GenerateImmutableArray(typeof(int), 10, 20, 30, 40, 50);
+            Console.WriteLine(dhanu2.GetType());
+            foreach (var i in dhanu2)
+            {
+                Console.WriteLine(i);
+            }
+
+            var dhanu3 = immutableArrays.GenerateImmutableArray(typeof(string), "Dhanu", "Madhu", "Mani", "Vamsi", "Brahmaiya");
+            Console.WriteLine(dhanu3.GetType());
+            foreach (var i in dhanu3)
+            {
+                Console.WriteLine(i);
+            }
 
             int[] w = new int[] { 2 };
             int[,] x = new int[,] { { 1, 2 } };
@@ -149,7 +168,7 @@ namespace ArraysImplimentations
             int[] resize_array = new int[] { 1, 2, 3, 4, 5 };
             Array.Resize(ref resize_array, 10);
 
-            dynamic array = GenerateArray(1, 2, 3);
+            dynamic array = genration.GenerateArray(typeof(int), 1, 2, 3);
 
             long space5 = GC.GetTotalMemory(true);
             short[] check = new short[2147483591];
@@ -165,61 +184,5 @@ namespace ArraysImplimentations
 
         }
 
-        static dynamic GenerateArray(params int[] dimensions)
-        {
-            switch (dimensions.Length)
-            {
-                case 0:
-                    throw new Exception("You have to mention atleast of 1 dimension");
-                case 1:
-                    return new int[dimensions[0]];
-                case 2:
-                    return new int[dimensions[0], dimensions[1]];
-                case 3:
-                    return new int[dimensions[0], dimensions[1], dimensions[2]];
-                case 4:
-                    return new int[dimensions[0], dimensions[1], dimensions[2], dimensions[3]];
-                default:
-                    throw new Exception("You have to mention atmost of 4 dimensions only");
-            }
-        }
-
-
-        static void DisplayArray(dynamic array)
-        {
-            var arr = array as Array;
-            if (arr != null)
-            {
-                if (array.Length > 0 && (array[0] == null || array[0] is Array))
-                {
-                    Console.WriteLine("The Array passed as the argument is an Jagged Array");
-                    Console.WriteLine("Displaying The Elements in the Jagged Array ");
-
-                    foreach (var ar in array)
-                    {
-                        if (ar != null)
-                        {
-                            foreach (var item in ar)
-                            {
-                                Console.Write(item + "\t");
-                            }
-                            Console.WriteLine();
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Displaying the elements the given {array.Rank} - Dimensional array");
-                    foreach (var item in array)
-                    {
-                        Console.WriteLine(item);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("The passed argument is an neither an Array nor a Jagged Array");
-            }
-        }
     }
 }
