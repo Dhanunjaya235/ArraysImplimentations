@@ -10,6 +10,8 @@ namespace ArraysImplimentations
             ArrayGenerations genration = new ArrayGenerations();
 
             GenerateImmutableArrays immutableArrays = new GenerateImmutableArrays();
+
+
             Console.WriteLine(typeof(double));
             Console.WriteLine(typeof(int));
             Console.WriteLine(typeof(long));
@@ -140,7 +142,8 @@ namespace ArraysImplimentations
             Console.WriteLine($"Total space in bytes : {space4 - space3}");
 
 
-            Console.WriteLine($"The difference in terms of bytes between jagged array and two dimensional array is : {(space4 - space3) - (space2 - space1)}");
+            Console.WriteLine($"The difference in terms of bytes between jagged array and two dimensional array " +
+                $"is : {(space4 - space3) - (space2 - space1)}");
 
             int sum = 0;
             Stopwatch s2 = new Stopwatch();
@@ -184,6 +187,6 @@ namespace ArraysImplimentations
             Console.WriteLine(space8 - space7);
 
         }
-        
+
     }
 }
