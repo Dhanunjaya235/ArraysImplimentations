@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Collections;
 namespace ArraysImplimentations
 {
     internal class Program
@@ -7,10 +8,47 @@ namespace ArraysImplimentations
         public static readonly int[] const_array = new int[10];
         static void Main(string[] args)
         {
+
+            ArrayList al=new ArrayList();
+
+            al.Add(0);
+            al.Add(1);
+            al.Add(2);
+            al.Add(3);
+
+            TwoDimensionalArray two = new TwoDimensionalArray(4, 5);
+
+            two.SetDefaultValues();
+            two.DisplayArray();
             ArrayGenerations genration = new ArrayGenerations();
 
             GenerateImmutableArrays immutableArrays = new GenerateImmutableArrays();
 
+            ArrayMethods methods= new ArrayMethods();
+
+            int[] sample_1d = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            int[,] sample_2d = new int[4, 4];
+
+            sample_2d=methods.CopyAnArrayIntoATwoDimensionalArray(sample_1d, sample_2d);
+
+
+            
+
+            int[,] two_dime = new int[2,2] { { 1, 2 }, { 3, 4 } };
+           var one_dime =methods.TwoDimensionalArrayToArray(two_dime);
+
+            foreach(int i in one_dime)
+            {
+                Console.WriteLine(i);
+            }
+
+            for(int i = 0; i <= sample_2d.GetUpperBound(0); i++)
+            {
+                for(int j = 0; j <= sample_2d.GetUpperBound(1); j++)
+                {
+                    Console.WriteLine(sample_2d[i,j]);
+                }
+            }
 
             Console.WriteLine(typeof(double));
             Console.WriteLine(typeof(int));
@@ -116,7 +154,7 @@ namespace ArraysImplimentations
             int[][] jagged_array = new int[2][] { new int[] { }, new int[] { } };
 
             int[,] array_2dim = new int[2, 2];
-            long spcace = GC.GetTotalMemory(false);
+            long spcace = GC.GetTotalMemory(true);
             Console.WriteLine(spcace);
 
             long space1 = GC.GetTotalMemory(false);
@@ -130,7 +168,7 @@ namespace ArraysImplimentations
 
             long space2 = GC.GetTotalMemory(false);
 
-            Console.WriteLine($"Total space in bytes : {space2 - space1}");
+            Console.WriteLine($"Total space taken by jagged array in bytes : {space2 - space1}");
 
 
             long space3 = GC.GetTotalMemory(false);
@@ -139,11 +177,11 @@ namespace ArraysImplimentations
 
             long space4 = GC.GetTotalMemory(false);
 
-            Console.WriteLine($"Total space in bytes : {space4 - space3}");
+            Console.WriteLine($"Total space taken by two dimensional array in bytes : {space4 - space3}");
 
 
             Console.WriteLine($"The difference in terms of bytes between jagged array and two dimensional array " +
-                $"is : {(space4 - space3) - (space2 - space1)}");
+                $"is : {Math.Abs((space4 - space3) - (space2 - space1))}");
 
             int sum = 0;
             Stopwatch s2 = new Stopwatch();
@@ -156,7 +194,7 @@ namespace ArraysImplimentations
                 }
             }
             s2.Stop();
-            Console.WriteLine(s2.ElapsedMilliseconds);
+            Console.WriteLine($"The time taken by jagged array is :  {s2.ElapsedMilliseconds}");
             Console.WriteLine($"The sum of the elements in the jagged array is :  {sum}");
             Stopwatch s = new Stopwatch();
             s.Start();
@@ -166,7 +204,7 @@ namespace ArraysImplimentations
             }
             s.Stop();
 
-            Console.WriteLine(s.ElapsedMilliseconds);
+            Console.WriteLine($"The time taken by two dimensional array is :  {s.ElapsedMilliseconds}");
             Console.WriteLine($"The sum of the elements in the two dimensional array is :  {sum}");
 
             int[] resize_array = new int[] { 1, 2, 3, 4, 5 };

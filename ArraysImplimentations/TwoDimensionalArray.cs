@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArraysImplimentations
+﻿namespace ArraysImplimentations
 {
     internal class TwoDimensionalArray
     {
@@ -18,29 +12,53 @@ namespace ArraysImplimentations
         }
 
         public int Rows { get { return rows; } }
-        public int Columns { get { return columns;} }
+        public int Columns { get { return columns; } }
 
-        public int GetValue(int row,int col)
+        public int GetValue(int row, int col)
         {
-            return array[row,col];
+            return array[row, col];
         }
 
-        public void SetValue(int row,int col,int value)
+        public void SetAllValues()
         {
-            array[row,col] = value;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    Console.Write($"Enter the number to save in poistion array[{i},{j}] : ");
+                    array[i, j] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+        }
+
+        public void SetDefaultValues()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    array[i, j] = i + j;
+                }
+            }
+        }
+        public void SetValue(int row, int col, int value)
+        {
+            array[row, col] = value;
 
         }
 
         public void DisplayArray()
         {
-            for(int i=0;i<rows;i++)
+            for (int i = 0; i < rows; i++)
             {
-                for(int j=0;j<columns;j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    Console.Write(array[i,j]+"\t");
+                    Console.Write(array[i, j] + "\t");
                 }
                 Console.WriteLine();
             }
         }
+
+
     }
 }
