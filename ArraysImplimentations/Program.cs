@@ -184,16 +184,6 @@ namespace ArraysImplimentations
             Console.WriteLine(space8 - space7);
 
         }
-        dynamic GenerateImmutableIntegerArray(params int[] values)
-        {
-            var temp = ImmutableArray.Create<int>(values);
-            return temp;
-        }
-
-        dynamic GenerateImmutableLongArray(params long[] values)
-        {
-            var temp = ImmutableArray.Create<long>(values);
-            return temp;
-        }
+        
     }
 }
