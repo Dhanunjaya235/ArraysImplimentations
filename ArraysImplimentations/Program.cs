@@ -7,9 +7,16 @@ namespace ArraysImplimentations
         public static readonly int[] const_array = new int[10];
         static void Main(string[] args)
         {
-            var implicit_array = new[] { 1, 2, 3, 4, 5 };
+            DisplayArray("Dhanunjay");
+            int[][] type_check = new int[10][];
+            type_check[0] = new int[10];
+            short[][] short_check = new short[10][];
+            DisplayArray(type_check);
+            DisplayArray(short_check);
 
+            var implicit_array = new[] { 1, 2, 3, 4, 5 };
             Console.WriteLine(implicit_array.GetType());
+            DisplayArray(implicit_array);
 
             var immutable = ImmutableArray.Create<int>(0, 1, 2, 3, 4, 5);
 
@@ -113,7 +120,7 @@ namespace ArraysImplimentations
             Console.WriteLine($"Total space in bytes : {space4 - space3}");
 
 
-            Console.WriteLine($"The difference in terms of bytes between jagged array and two dimensional array is : {(space4 - space3)-(space2 - space1)}");
+            Console.WriteLine($"The difference in terms of bytes between jagged array and two dimensional array is : {(space4 - space3) - (space2 - space1)}");
 
             int sum = 0;
             Stopwatch s2 = new Stopwatch();
@@ -127,7 +134,7 @@ namespace ArraysImplimentations
             }
             s2.Stop();
             Console.WriteLine(s2.ElapsedMilliseconds);
-
+            Console.WriteLine($"The sum of the elements in the jagged array is :  {sum}");
             Stopwatch s = new Stopwatch();
             s.Start();
             foreach (var i in temp)
@@ -137,7 +144,7 @@ namespace ArraysImplimentations
             s.Stop();
 
             Console.WriteLine(s.ElapsedMilliseconds);
-
+            Console.WriteLine($"The sum of the elements in the two dimensional array is :  {sum}");
 
             int[] resize_array = new int[] { 1, 2, 3, 4, 5 };
             Array.Resize(ref resize_array, 10);
@@ -145,37 +152,17 @@ namespace ArraysImplimentations
             dynamic array = GenerateArray(1, 2, 3);
 
             long space5 = GC.GetTotalMemory(true);
-            int[] check = new int[2147483591];
+            short[] check = new short[2147483591];
             long space6 = GC.GetTotalMemory(true);
 
             Console.WriteLine(space6 - space5);
 
-        }
+            long space7 = GC.GetTotalMemory(true);
+            int[] check_int = new int[2147483591];
+            long space8 = GC.GetTotalMemory(true);
 
-        static void ChangeArray(int[] arr)
-        {
-            arr[0] = 100;
-            arr[1] = 200;
-            arr[2] = 300;
-        }
+            Console.WriteLine(space8 - space7);
 
-        static void ChangeArray(long[] arr)
-        {
-            arr[0] = 100;
-            arr[1] = 200;
-            arr[2] = 300;
-        }
-
-        static dynamic MultipleReturns(string str)
-        {
-            if (str.StartsWith("D"))
-            {
-                return true;
-            }
-            else
-            {
-                return 10;
-            }
         }
 
         static dynamic GenerateArray(params int[] dimensions)
@@ -197,19 +184,41 @@ namespace ArraysImplimentations
             }
         }
 
-        static void DisplayArray(int[] array)
-        {
-            foreach(var i in array)
-            {
-                Console.WriteLine(i);
-            }
-        }
 
-        static void DisplayArray(int[,] array)
+        static void DisplayArray(dynamic array)
         {
-            foreach (var i in array)
+            var arr = array as Array;
+            if (arr != null)
             {
-                Console.WriteLine(i);
+                if (array.Length > 0 && (array[0] == null || array[0] is Array))
+                {
+                    Console.WriteLine("The Array passed as the argument is an Jagged Array");
+                    Console.WriteLine("Displaying The Elements in the Jagged Array ");
+
+                    foreach (var ar in array)
+                    {
+                        if (ar != null)
+                        {
+                            foreach (var item in ar)
+                            {
+                                Console.Write(item + "\t");
+                            }
+                            Console.WriteLine();
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Displaying the elements the given {array.Rank} - Dimensional array");
+                    foreach (var item in array)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("The passed argument is an neither an Array nor a Jagged Array");
             }
         }
     }
