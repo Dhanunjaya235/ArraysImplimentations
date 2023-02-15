@@ -181,5 +181,10 @@
                     throw new Exception("You have to mention atmost of 4 dimensions only");
             }
         }
+
+        void Display()
+        {
+            Console.WriteLine("Array Generations Class Display Method");
+        }
     }
 }
